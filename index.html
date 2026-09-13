@@ -865,6 +865,25 @@
   .agenda .row .t{font-size:calc(var(--afs)*var(--akf));font-weight:800;color:var(--gold-300);font-variant-numeric:tabular-nums}
   .agenda .row .x{font-size:calc(var(--afs)*var(--akf));line-height:1.26;color:rgba(255,248,231,.9)}
 
+  /* ---------- Цагийн хуваарь (чиглүүлэх уулзалт) ---------- */
+  .tt{--ttk:1;flex:1 1 auto;min-height:0;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:space-between;margin-top:8px}
+  .ttrow{display:grid;grid-template-columns:calc(300px*var(--ttk)) 1fr calc(440px*var(--ttk));
+    gap:calc(26px*var(--ttk));align-items:center;
+    padding:calc(14px*var(--ttk)) 0;border-bottom:1px solid rgba(242,194,48,.18)}
+  .ttrow:last-child{border-bottom:0}
+  .tt-t{font-size:calc(34px*var(--ttk));font-weight:800;color:var(--gold-300);
+    font-variant-numeric:tabular-nums}
+  .tt-x{font-size:calc(34px*var(--ttk));line-height:1.2;font-weight:700;color:rgba(255,248,231,.96)}
+  .tt-w{font-size:calc(26px*var(--ttk));line-height:1.22;color:rgba(255,248,231,.72);
+    font-weight:600;text-align:right}
+  body.focus .tt{--ttk:1.22}
+  body.light .tt-x{color:#06301C}
+  body.light .tt-t{color:#7A5A0E}
+  body.light .tt-w{color:#4B5C50}
+  body.light .ttrow{border-bottom-color:rgba(10,81,48,.18)}
+  body.day .tt-x{color:#fff}
+
   /* ================================================================
      ШИНЭ ЭЛСЭГЧДЭД ЗОРИУЛСАН СЛАЙДУУД
      ================================================================ */
@@ -1779,10 +1798,14 @@ const P=[
 
  {ts:"11:00", t:"11:00–14:00", nv:"Чиглүүлэх уулзалт",
   title:"Шинэ оюутныг чиглүүлэх уулзалт",
-  sub:"Бүрэлдэхүүн сургуулийн Сургалтын алба, Тэнхимүүд",
-  cards:[
-   {h:"АГУУЛГА", ul:["Сургалтын хөтөлбөр, кредит системийн танилцуулга","Багш, зөвлөх багштай танилцах","Хичээлийн хуваарь, дүрэм журам"]},
-   {h:"ХАРИУЦАХ", ul:["Бүрэлдэхүүн сургуулийн Сургалтын алба","Тэнхимүүд"]}]}
+  sub:"13:00–14:00 · Бүрэлдэхүүн сургууль, тэнхимүүдэд",
+  tt:[
+   ["13:00–13:05","Шинэ элсэгчдийг угтах","Тэнхимийн багш нар"],
+   ["13:05–13:15","Тэнхим, багш нарын танилцуулга","Тэнхимийн эрхлэгч"],
+   ["13:15–13:30","ХААИС-ийн сургалтын үйл ажиллагааны танилцуулга","ЭЗБС-ийн Сургалтын албаны ажилтан"],
+   ["13:30–13:40","Мэргэжлийн хөтөлбөрүүдийн танилцуулга","Тэнхимийн эрхлэгч"],
+   ["13:40–13:50","«Ажил ба амжилтын гараа» хөтөлбөрийн төгсөгчийн яриа","Хөтөлбөрийн төгсөгч"],
+   ["13:50–14:00","Оюутанд чиглэсэн үйл ажиллагааны танилцуулга","ЭЗБС-ийн Оюутны Зөвлөлөөс төлөөлөгч"]]}
 ];
 
 /* ================================================================
@@ -2320,6 +2343,12 @@ P.forEach((it,i)=>{
         ).join('')}</div>`:''}
       </div>
     </div>`;
+  } else if(it.tt){
+    s.classList.add('ttslide');
+    body=`<div class="tt">${it.tt.map(r=>
+      `<div class="ttrow"><div class="tt-t">${esc(r[0])}</div>`+
+      `<div class="tt-x">${esc(r[1])}</div>`+
+      `<div class="tt-w">${esc(r[2]||'')}</div></div>`).join('')}</div>`;
   } else if(it.clubs){
     s.classList.add('clubslide');
     if(it.clubsBig) s.classList.add('clubsbig');
@@ -2809,6 +2838,16 @@ function fitAgenda(s){
 
 /* Урилга/танилцуулах карт — агуулга хүрээндээ тулахаас сэргийлж багасгана.
    Дээд, доод талд дор хаяж PAD пиксел зай үлдээнэ. */
+/* Цагийн хуваарь — слайдад багтахаар автоматаар багасгана */
+function fitTT(s){
+  const t=s&&s.querySelector('.tt'); if(!t)return;
+  t.style.removeProperty('--ttk');
+  let k=parseFloat(getComputedStyle(t).getPropertyValue('--ttk'))||1, guard=60;
+  while(guard-- > 0 && k > 0.6 && t.scrollHeight > t.clientHeight + 1){
+    k -= 0.02; t.style.setProperty('--ttk', k.toFixed(3));
+  }
+}
+
 function fitInv(s){
   const c=s&&s.querySelector('.invcard'); if(!c)return;
   const PAD=34;
@@ -2849,7 +2888,7 @@ function fitCards(s){
     }
   }
 }
-function refitCreed(){ slides.forEach(s=>{fitCreed(s);fitCards(s);fitAgenda(s);fitInv(s)}); }
+function refitCreed(){ slides.forEach(s=>{fitCreed(s);fitCards(s);fitAgenda(s);fitInv(s);fitTT(s)}); }
 
 /* ============ СҮЛД ДУУ — мөр мөрөөр гараар удирдана ============
    Бадаг бүхэлдээ харагдана; одоо дуулж буй мөр тод, өнгөрсөн нь бүдэг.
@@ -2998,7 +3037,7 @@ function handleVideos(i){
     if(ap&&ap.classList.contains('songslide'))       requestAnimationFrame(()=>runSongLines(ap));
     else if(ap&&ap.classList.contains('peopleslide'))requestAnimationFrame(()=>runPeople(ap));
   }
-  { const ac=slides[i]; if(ac)requestAnimationFrame(()=>{fitCards(ac);fitAgenda(ac);fitInv(ac)}); }
+  { const ac=slides[i]; if(ac)requestAnimationFrame(()=>{fitCards(ac);fitAgenda(ac);fitInv(ac);fitTT(ac)}); }
   const act=slides[i];
   if(act&&act.dataset.key)requestAnimationFrame(()=>runFreshman(act));
   slides.forEach((s,k)=>{
