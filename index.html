@@ -952,6 +952,10 @@
     font-size:38px;line-height:1.2;font-weight:700;letter-spacing:.09em;
     color:var(--gold-300);text-shadow:0 3px 16px rgba(0,0,0,.55);
   }
+  .spotname .pg .k{
+    font-size:.62em;letter-spacing:.12em;font-weight:700;
+    color:rgba(255,248,231,.78);margin-right:.5em;text-transform:none;
+  }
   .starcap{
     position:absolute;left:0;right:0;bottom:0;text-align:center;
     font-size:38px;font-weight:700;color:rgba(255,248,231,.92);
@@ -1366,6 +1370,7 @@
   }
   body.light .spotname .nm{color:#0A5130;text-shadow:0 0 40px rgba(255,255,255,.9)}
   body.light .spotname .pg{color:#7A5A0E;text-shadow:none}
+  body.light .spotname .pg .k{color:#4B5C50}
   body.light .starcap{color:#0C2E1C;background:linear-gradient(180deg,transparent,rgba(246,241,227,.92) 55%)}
   body.light .starcap b{color:#7A5A0E}
 
@@ -2667,7 +2672,8 @@ function runNames(s){
     const o=nextName();
     if(!o){ if(iv)clearInterval(iv);
             spot.classList.remove('on'); if(wrap)wrap.classList.remove('spot'); return; }
-    spot.innerHTML='<div class="nm">'+esc(o.n)+'</div>'+(o.p?'<div class="pg">'+esc(o.p)+'</div>':'');
+    spot.innerHTML='<div class="nm">'+esc(o.n)+'</div>'+
+      (o.p?'<div class="pg"><span class="k">Хөтөлбөр:</span>'+esc(o.p)+'</div>':'');
     fitSpot();
     spot.classList.add('on'); if(wrap)wrap.classList.add('spot');
     fmTimers.push(setTimeout(()=>{spot.classList.remove('on'); if(wrap)wrap.classList.remove('spot');},2600));
