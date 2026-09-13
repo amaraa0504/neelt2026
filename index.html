@@ -2614,11 +2614,13 @@ function runDay1(s){
    Нэг гарсан нэр хуудсыг refresh хийх хүртэл дахин гарахгүй.
    Хуудас ачаалахад нэг л удаа холиод, дарааллаар нь зарцуулна. */
 let NAMEQ=null;
+/* Овгийн товчлол, нэрний эхний үсгийг том болгоно (мөрийн эхэнд, «.», «-»-ийн дараа). */
+const tcase=s=>String(s).replace(/(^|[.\-\s])([а-яёүө])/g,(m,a,b)=>a+b.toUpperCase());
 function nameQueue(){
   if(NAMEQ)return NAMEQ;
   const pool=FRESHMAN.names.map(x=>{
     const parts=String(x).split('|');
-    return {n:(parts[0]||'').trim(), p:(parts[1]||'').trim()};
+    return {n:tcase((parts[0]||'').trim()), p:(parts[1]||'').trim()};
   }).filter(o=>o.n);
   for(let i=pool.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1)); const t=pool[i]; pool[i]=pool[j]; pool[j]=t;
