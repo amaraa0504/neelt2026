@@ -576,6 +576,23 @@
   .songslide .scard .slines div.past{opacity:.20}
   .songslide .scard .slines div.on{opacity:1;color:#fff}
   body.light .songslide .scard .slines div.on{color:#04301B}
+  /* Үг, аяны зохиогч — бадаг бүр дээр харагдана */
+  .songslide .scredit{
+    flex:0 0 auto;display:flex;justify-content:center;align-items:center;
+    gap:46px;margin-top:18px;
+  }
+  .songslide .scredit .sc{display:flex;align-items:baseline;gap:.5em}
+  .songslide .scredit .k{
+    font-size:23px;font-weight:800;letter-spacing:.16em;color:var(--gold-400);
+  }
+  .songslide .scredit .v{
+    font-size:33px;font-weight:800;letter-spacing:.01em;color:var(--cream);
+  }
+  body.focus .songslide .scredit{gap:60px;margin-top:24px}
+  body.focus .songslide .scredit .k{font-size:27px}
+  body.focus .songslide .scredit .v{font-size:40px}
+  body.light .songslide .scredit .k{color:#7A5A0E}
+  body.light .songslide .scredit .v{color:#0A2A18}
 
   /* ---------- Танилцуулах карт (урилгын загвар) ---------- */
   .slide.bannerslide h3,.slide.bannerslide .s-sub{display:none}
@@ -1645,9 +1662,10 @@ const P=[
     vow:"ТАНГАРАГЛАЯ, ТАНГАРАГЛАЯ, ТАНГАРАГЛАЯ"
   }},
 
- {ts:"10:30", t:"10:30–10:35", nv:"ХААИС-ийн сүлд дуу",
-  title:"Хөдөө Аж Ахуйн Их Сургуулийн сүлд дуу",
+ {ts:"10:30", t:"10:30–10:35", nv:"ХААИС-ийн Сүлд дуу",
+  title:"Хөдөө Аж Ахуйн Их Сургуулийн Сүлд дуу",
   sub:"ХААИС-ийн дуучин оюутнууд",
+  songCredit:[["ҮГ","Ч.Нандинцэцэг"],["АЯ","Б.Бямбабаяр"]],
   song:[
     {h:"1-Р БАДАГ", chorus:false, lines:[
       "Мэдлэг оюуны цараанд Гэгээ нэмсэн ачлалтай",
@@ -1691,9 +1709,9 @@ const P=[
     startMs:2000,     /* эхний мөр хэдэн мс-ийн дараа гарах */
     minMs:3000,       /* мөр бүрийн хамгийн богино харагдах хугацаа */
     lines:[
-      "Монголын түүх, өв соёл, эрдэм мэдлэгийн залгамж чанарыг илэрхийлэх алтан хүрээ...",
-      "Эх дэлхий, хөдөлмөр, арвин ургацын бэлгэдэл болсон алтан тариан түрүү...",
-      "Эрх чөлөө, эрч хүч, хөгжил дэвшил рүү тэмүүлэх монгол хүний сэтгэлийг илэрхийлсэн давхин тэмүүлэх хүлэг...",
+      "Монголын түүх, өв соёл, эрдэм мэдлэгийн залгамж чанарыг илэрхийлэх алтан хүрээ,",
+      "Эх дэлхий, хөдөлмөр, арвин ургацын бэлгэдэл болсон алтан тариан түрүү,",
+      "Эрх чөлөө, эрч хүч, хөгжил дэвшил рүү тэмүүлэх монгол хүний сэтгэлийг илэрхийлсэн давхин тэмүүлэх хүлэг,",
       "Эдгээр үнэт зүйлсийн төвд — Хөдөө Аж Ахуйн Их Сургууль.",
       "Монголын уламжлалт мэдлэгийг орчин үеийн шинжлэх ухаантай холбон, дэлхийн боловсрол, судалгааны хөгжилтэй мөр зэрэгцэн алхах — Mongolian University of Life Sciences.",
       "Өв уламжлалаас — эрдэм мэдлэг рүү.",
@@ -2306,6 +2324,9 @@ P.forEach((it,i)=>{
             <div class="slines">${v.lines.map(x=>`<div>${esc(x)}</div>`).join('')}</div>
           </div>
         </div>`).join('')}</div>
+      ${it.songCredit?`<div class="scredit">${it.songCredit.map(c=>
+        `<div class="sc"><span class="k">${esc(c[0])}</span><span class="v">${esc(c[1])}</span></div>`
+       ).join('')}</div>`:''}
       <div class="pdots">${V.map((v,j)=>`<div class="pd${j===0?' on':''}"></div>`).join('')}</div>
     </div>`;
   } else if(it.creed){
