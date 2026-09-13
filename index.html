@@ -998,6 +998,27 @@
   body.focus .spotname .pg{font-size:46px;margin-top:28px}
   body.focus .starcap{font-size:46px}
 
+  /* --- Клубын од: дугаарын дарааллаар ээлжилнэ --- */
+  .clubstarslide .starwrap{border:2px solid rgba(242,194,48,.28)}
+  .cspot{--spfs:112px}
+  body.focus .cspot{--spfs:140px}
+  .cspot .no{
+    display:inline-block;margin-bottom:20px;padding:8px 30px;border-radius:999px;
+    font-size:30px;font-weight:900;letter-spacing:.14em;
+    color:#0B2417;background:linear-gradient(180deg,var(--gold-400),var(--gold-500));
+    box-shadow:0 6px 26px rgba(242,194,48,.35);
+  }
+  .cspot.sp .no{
+    color:var(--gold-300);background:none;
+    border:2px solid var(--gold-400);box-shadow:none;
+  }
+  body.focus .cspot .no{font-size:36px;padding:10px 36px;margin-bottom:26px}
+  .cspot .nm{white-space:normal;max-width:1560px}
+  .clubstarslide .starname .nm{font-weight:700}
+  .clubstarslide .starcap b{font-weight:900}
+  body.light .cspot .no{color:#0B2417}
+  body.light .cspot.sp .no{color:#7A5A0E;border-color:#C99A06}
+
   /* ---------------- 2. ӨНӨӨДӨР БОЛ 1 ДЭХ ӨДӨР ---------------- */
   .day1{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;text-align:center}
   .day1 .d1lead{font-size:42px;font-weight:700;color:var(--gold-300);letter-spacing:.02em;margin-bottom:8px}
@@ -1799,38 +1820,35 @@ const P=[
 
  {ts:"10:57", t:"10:56–11:00", same:true, nv:"Оюутны клубууд",
   title:"Оюутны клубууд",
-  sub:"Сонирхлын чиглэлээрээ нэгдэж, оюутны хөгжлийн клубт элсээрэй",
-  clubs:[
-   {n:"«Мал зүйч оюутан» клуб",   d:"Мал аж ахуй",                          u:"МААБС"},
-   {n:"«Furry friends» клуб",     d:"Амьтны эрх хамгаалах",                 u:"МЭС"},
-   {n:"«Атяна» клуб",             d:"Мал эмнэлэг · үзүүлэн бэлтгэх",        u:"МЭС"},
-   {n:"«Ирээдүйн СЕО» клуб",      d:"Илтгэл, мэтгэлцээн, багийн ажиллагаа", u:"ЭЗБС"},
-   {n:"«MULS Finance» клуб",      d:"Санхүү",                               u:"ЭЗБС"},
-   {n:"«IFA» клуб",               d:"Санхүү",                               u:"ЭЗБС"},
-   {n:"«HR club» клуб",           d:"Хүний нөөц",                           u:"ЭЗБС"},
-   {n:"«Biz Mind» клуб",          d:"Бизнес",                               u:"ЭЗБС"},
-   {n:"«HELPERS» клуб",           d:"Програм хангамж, хөгжим, гадаад хэл",  u:"ЭЗБС"},
-   {n:"«Digital Solutions» клуб", d:"Зураг, видео, подкаст",                u:"ЭЗБС"},
-   {n:"«Эерэг өнцөг» клуб",       d:"Гэрэл зураг",                          u:"АЭС"},
-   {n:"«Агро робот» клуб",        d:"",                                     u:"ИТС"},
-   {n:"«Зохион бүтээх» клуб",     d:"",                                     u:"ИТС"},
-   {n:"«Шагайн харваа» клуб",     d:"",                                     u:"ИТС"},
-   {n:"«Хатантуул» клуб",         d:"Бүжгийн спорт",                        u:""},
-   {n:"«Киран» клуб",             d:"Казак оюутны клуб",                    u:""},
-   {n:"«Танкс» клуб",             d:"",                                     u:""},
-   {n:"Спорт клуб · 7 төрөл",       d:"Дараагийн слайдад",                    u:""}]},
-
- {ts:"10:58", t:"10:56–11:00", same:true, nv:"Спорт клуб",
-  title:"Спорт клуб",
-  clubsBig:true,
-  clubs:[
-   "Сагсан бөмбөг",
-   "Волейбол",
-   "Гандбол",
-   "Ширээний теннис",
-   "Гимнастик",
-   "Модон бөмбөг",
-   "Үндэсний бөх"]},
+  clubStar:{
+   cap:"Сонирхлын чиглэлээрээ нэгдэж, оюутны хөгжлийн клубт <b>элсээрэй</b>.",
+   list:[
+    {no:"1",  n:"«Мал зүйч оюутан» клуб",   d:"Мал аж ахуй",                          u:"МААБС"},
+    {no:"2",  n:"«Furry friends» клуб",     d:"Амьтны эрх хамгаалах",                 u:"МЭС"},
+    {no:"3",  n:"«Атяна» клуб",             d:"Мал эмнэлэг · үзүүлэн бэлтгэх",        u:"МЭС"},
+    {no:"4",  n:"«Ирээдүйн СЕО» клуб",      d:"Илтгэл, мэтгэлцээн, багийн ажиллагаа", u:"ЭЗБС"},
+    {no:"5",  n:"«MULS Finance» клуб",      d:"Санхүү",                               u:"ЭЗБС"},
+    {no:"6",  n:"«IFA» клуб",               d:"Санхүү",                               u:"ЭЗБС"},
+    {no:"7",  n:"«HR club» клуб",           d:"Хүний нөөц",                           u:"ЭЗБС"},
+    {no:"8",  n:"«Biz Mind» клуб",          d:"Бизнес",                               u:"ЭЗБС"},
+    {no:"9",  n:"«HELPERS» клуб",           d:"Програм хангамж, хөгжим, гадаад хэл",  u:"ЭЗБС"},
+    {no:"10", n:"«Digital Solutions» клуб", d:"Зураг, видео, подкаст",                u:"ЭЗБС"},
+    {no:"11", n:"«Эерэг өнцөг» клуб",       d:"Гэрэл зураг",                          u:"АЭС"},
+    {no:"12", n:"«Агро робот» клуб",        d:"",                                     u:"ИТС"},
+    {no:"13", n:"«Зохион бүтээх» клуб",     d:"",                                     u:"ИТС"},
+    {no:"14", n:"«Шагайн харваа» клуб",     d:"",                                     u:"ИТС"},
+    {no:"15", n:"«Хатантуул» клуб",         d:"Бүжгийн спорт",                        u:""},
+    {no:"16", n:"«Киран» клуб",             d:"Казак оюутны клуб",                    u:""},
+    {no:"17", n:"«Танкс» клуб",             d:"",                                     u:""},
+    {no:"18", n:"Спорт клуб",               d:"7 төрөл",                              u:""},
+    {no:"18 · 1", sp:true, n:"Сагсан бөмбөг",   d:"", u:""},
+    {no:"18 · 2", sp:true, n:"Волейбол",        d:"", u:""},
+    {no:"18 · 3", sp:true, n:"Гандбол",         d:"", u:""},
+    {no:"18 · 4", sp:true, n:"Ширээний теннис", d:"", u:""},
+    {no:"18 · 5", sp:true, n:"Гимнастик",       d:"", u:""},
+    {no:"18 · 6", sp:true, n:"Модон бөмбөг",    d:"", u:""},
+    {no:"18 · 7", sp:true, n:"Үндэсний бөх",    d:"", u:""}
+   ]}},
 
  {ts:"11:00", t:"11:00–14:00", nv:"Campus tour",
   title:"Campus tour",
@@ -1848,7 +1866,18 @@ const P=[
       "ОЮУТНЫ БАЙР 1, 2, 3",
       "БАГШ НАРЫН ОРОН СУУЦ",
       "МАЛ АМЬТНЫ ЭМНЭЛЭГ"
-    ]}}
+    ]}},
+
+ {ts:"13:00", t:"13:00–14:00", nv:"Чиглүүлэх уулзалт",
+  title:"Мэргэжлийн тэнхмийн чиглүүлэх уулзалт",
+  sub:"Шинэ элсэгчид мэргэжлийн тэнхимдээ цугларна",
+  tt:[
+   ["13:00–13:05","Шинэ элсэгчдийг ангид угтах","Тэнхимийн багш нар"],
+   ["13:05–13:15","Тэнхим, багш нарын танилцуулга","Тэнхимийн эрхлэгч"],
+   ["13:15–13:30","ХААИС-ийн сургалтын үйл ажиллагааны танилцуулга","ЭЗБС-ийн Сургалтын албаны ажилтан"],
+   ["13:30–13:40","Мэргэжлийн хөтөлбөрүүдийн танилцуулга","Тэнхимийн эрхлэгч"],
+   ["13:50–14:00","Оюутанд чиглэсэн үйл ажиллагааны танилцуулга","ЭЗБС-ийн Оюутны Зөвлөлөөс төлөөлөгч"]
+  ]}
 ];
 
 /* ================================================================
@@ -2395,6 +2424,14 @@ P.forEach((it,i)=>{
       `<div class="ttrow"><div class="tt-t">${esc(r[0])}</div>`+
       `<div class="tt-x">${esc(r[1])}</div>`+
       `<div class="tt-w">${esc(r[2]||'')}</div></div>`).join('')}</div>`;
+  } else if(it.clubStar){
+    /* Клубуудыг «Нэрсийн од» маягаар — ГЭХДЭЭ дугаарын дарааллаар ээлжлүүлнэ */
+    s.classList.add('clubstarslide');
+    body=`<div class="starwrap">
+      <div class="starfield"></div>
+      <div class="spotwrap"><div class="spotname cspot"></div></div>
+      <div class="starcap">${it.clubStar.cap||''}</div>
+    </div>`;
   } else if(it.clubs){
     s.classList.add('clubslide');
     if(it.clubsBig) s.classList.add('clubsbig');
@@ -2733,6 +2770,63 @@ function runNames(s){
   };
   fmTimers.push(setTimeout(shine,700));
   iv=setInterval(shine,3800); fmTimers.push(iv);
+}
+
+/* ---- Клубын од: дараалал ХОЛИХГҮЙ, 1-ээс эхлээд эргэлдэнэ ---- */
+function runClubStar(s){
+  const it=P[+s.dataset.i]; if(!it||!it.clubStar)return;
+  const L=it.clubStar.list||[]; if(!L.length)return;
+  const field=s.querySelector('.starfield'), spot=s.querySelector('.cspot'),
+        wrap=s.querySelector('.starwrap');
+  if(!field||!spot)return;
+
+  /* Дэвсгэрт хөвөх нэрс — мөн дарааллаараа ээлжилнэ */
+  field.innerHTML='';
+  const SLOTS=Math.min(14,L.length);
+  let bg=0;
+  for(let i=0;i<SLOTS;i++){
+    const el=document.createElement('div');
+    el.className='starname';
+    el.style.animationDuration=(28+Math.random()*12).toFixed(1)+'s';
+    el.style.animationDelay=(-Math.random()*28).toFixed(1)+'s';
+    const place=()=>{
+      const o=L[bg++ % L.length];
+      el.innerHTML='<div class="nm">'+esc(o.n)+'</div>';
+      el.style.left=(Math.random()*66+3)+'%';
+      el.style.top =(Math.random()*82+5)+'%';
+      el.style.fontSize=(20+Math.random()*18).toFixed(0)+'px';
+    };
+    place();
+    el.addEventListener('animationiteration',place);
+    field.appendChild(el);
+  }
+
+  const fitSpot=()=>{
+    spot.style.removeProperty('--spfs');
+    const nm=spot.querySelector('.nm'); if(!nm)return;
+    const box=spot.parentElement||spot;
+    const maxW=box.clientWidth-140; if(maxW<=0)return;
+    let f=parseFloat(getComputedStyle(spot).getPropertyValue('--spfs'))||112, g=80;
+    while(g-- > 0 && nm.scrollWidth > maxW && f > 48){
+      f-=4; spot.style.setProperty('--spfs',f+'px');
+    }
+  };
+  let k=0;
+  const shine=()=>{
+    const o=L[k++ % L.length];
+    const sub=[o.d,o.u].filter(Boolean).join(' · ');
+    spot.classList.toggle('sp',!!o.sp);
+    /* Дугаарыг харуулахгүй — зөвхөн нэр, чиглэл */
+    spot.innerHTML='<div class="nm">'+esc(o.n)+'</div>'+
+      (sub?'<div class="pg">'+esc(sub)+'</div>':'');
+    fitSpot();
+    spot.classList.add('on'); if(wrap)wrap.classList.add('spot');
+    fmTimers.push(setTimeout(()=>{
+      spot.classList.remove('on'); if(wrap)wrap.classList.remove('spot');
+    },2500));
+  };
+  fmTimers.push(setTimeout(shine,500));
+  fmTimers.push(setInterval(shine,3400));
 }
 
 function runFreshman(s){
@@ -3077,6 +3171,7 @@ let vidMuted=false;
 function handleVideos(i){
   stopEmblem(); stopFresh(); stopValues(); stepClear(); stopFlag();
   { const act=slides[i]; if(act&&act.classList.contains('flagslide'))requestAnimationFrame(()=>runFlag(act)); }
+  { const act=slides[i]; if(act&&act.classList.contains('clubstarslide'))requestAnimationFrame(()=>runClubStar(act)); }
   slides.forEach(s=>{ if(s.classList.contains('valuesslide'))resetValues(s); });
   {
     const act=slides[i];
