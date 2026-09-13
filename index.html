@@ -410,13 +410,17 @@
   .pdet .pfam{font-size:34px;line-height:1.2;color:rgba(255,248,231,.78);letter-spacing:.03em;margin-bottom:10px}
   /* Хөтөлбөрийн нэрийг хайрцаглана (нэрийг НЭ хайрцаглана) */
   .pdet .pprog{
-    align-self:flex-start;margin-top:26px;
+    align-self:flex-start;margin-top:26px;max-width:100%;
     font-size:46px;font-weight:800;letter-spacing:.01em;color:var(--cream);
     line-height:1.16;
+    /* Шошго, нэрийг тусад нь баганалснаар нэр нь хоёр мөр болоход
+       хоёр дахь мөр «Мах» гэдэгтэй ижил шугамаас эхэлнэ. */
+    display:flex;align-items:baseline;gap:.42em;
   }
+  .pdet .pprog .v{flex:1 1 auto;min-width:0}
   .pdet .pprog .k{
-    font-size:.5em;letter-spacing:.1em;font-weight:700;
-    color:var(--gold-400);margin-right:.45em;
+    flex:0 0 auto;font-size:.5em;letter-spacing:.1em;font-weight:700;
+    color:var(--gold-400);
   }
   .pdet .pmeta{display:flex;align-items:baseline;gap:16px;margin-top:28px}
   .pdet .pmeta .k{font-size:20px;letter-spacing:.18em;color:var(--gold-400);font-weight:700}
@@ -2384,7 +2388,7 @@ P.forEach((it,i)=>{
             <div class="prule"></div>
             <div class="pfam">${esc(q.f)} овогтой</div>
             <div class="pnm">${esc(q.n)}</div>
-            <div class="pprog"><span class="k">Хөтөлбөр:</span>${esc(q.pr)}</div>
+            <div class="pprog"><span class="k">Хөтөлбөр:</span><span class="v">${esc(q.pr)}</span></div>
             ${q.meta?`<div class="pmeta">${it.people.metaLabel?`<div class="k">${esc(it.people.metaLabel)}</div>`:''}<div class="v">${esc(q.meta)}</div></div>`:''}
           </div>
         </div>`).join('')}</div>
