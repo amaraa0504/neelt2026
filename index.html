@@ -572,10 +572,9 @@
 
   /* ---------- Танилцуулах карт (урилгын загвар) ---------- */
   .slide.bannerslide h3,.slide.bannerslide .s-sub{display:none}
-  .bannerslide .invcard .ibig{font-size:84px;line-height:1.06}
-  .bannerslide .invcard .itxt{font-size:38px}
-  body.focus .bannerslide .invcard .ibig{font-size:104px}
-  body.focus .bannerslide .invcard .itxt{font-size:46px}
+  .bannerslide .invcard{--ibig:84px;--itxt:38px}
+  .bannerslide .invcard .ibig{line-height:1.06}
+  body.focus .bannerslide .invcard{--ibig:104px;--itxt:46px}
 
   /* ---------- Оюутны клубууд — том дэлгэцэд уншигдахуйц хүснэгт ---------- */
   .clubgrid{
@@ -839,14 +838,23 @@
     padding:34px 60px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);position:relative;
   }
   .invcard::after{content:"";position:absolute;inset:11px;border:1px solid rgba(242,194,48,.35);border-radius:16px;pointer-events:none}
-  .invcard .ilogo{width:164px;height:164px;margin:0 auto 18px;display:block}
-  .invcard .iuni{font-size:33px;letter-spacing:.22em;color:var(--gold-400);font-weight:700;margin-bottom:18px}
-  .invcard .ibig{font-size:100px;font-weight:900;color:var(--gold-300);letter-spacing:.08em;margin-bottom:16px;line-height:1.05}
-  .invcard .itxt{font-size:42px;line-height:1.4;color:rgba(255,248,231,.94);margin-bottom:26px}
-  .invcard .imeta{display:flex;justify-content:center;gap:70px;flex-wrap:wrap;
-    background:var(--divimg) top center/520px 34px no-repeat;padding-top:56px}
-  .invcard .imeta .k{font-size:21px;letter-spacing:.16em;color:var(--gold-400);margin-bottom:7px}
-  .invcard .imeta .v{font-size:42px;font-weight:700}
+  /* --ik — картын доторх бүх хэмжээний нэгдсэн коэффициент.
+     Агуулга хүрээндээ тулбал JS (fitInv) энэ утгыг багасгана. */
+  .invcard{--ik:1; --ilogo:164px; --iuni:33px; --ibig:100px; --itxt:42px}
+  .invcard .ilogo{width:calc(var(--ilogo)*var(--ik));height:calc(var(--ilogo)*var(--ik));
+    margin:0 auto calc(18px*var(--ik));display:block}
+  .invcard .iuni{font-size:calc(var(--iuni)*var(--ik));letter-spacing:.22em;color:var(--gold-400);
+    font-weight:700;margin-bottom:calc(18px*var(--ik))}
+  .invcard .ibig{font-size:calc(var(--ibig)*var(--ik));font-weight:900;color:var(--gold-300);
+    letter-spacing:.08em;margin-bottom:calc(16px*var(--ik));line-height:1.05}
+  .invcard .itxt{font-size:calc(var(--itxt)*var(--ik));line-height:1.4;
+    color:rgba(255,248,231,.94);margin-bottom:calc(26px*var(--ik))}
+  .invcard .imeta{display:flex;justify-content:center;gap:calc(70px*var(--ik));flex-wrap:wrap;
+    background:var(--divimg) top center/calc(520px*var(--ik)) calc(34px*var(--ik)) no-repeat;
+    padding-top:calc(56px*var(--ik))}
+  .invcard .imeta .k{font-size:calc(21px*var(--ik));letter-spacing:.16em;color:var(--gold-400);
+    margin-bottom:calc(7px*var(--ik))}
+  .invcard .imeta .v{font-size:calc(42px*var(--ik));font-weight:700}
 
   .agenda{--ak:1;--akf:1;--acw:150px;--afs:24px;
     flex:1 1 auto;min-height:0;overflow:hidden;columns:2;column-gap:44px}
@@ -1106,14 +1114,7 @@
   body.focus .oath .lines div{font-size:36px}
   body.focus .oath .vow{margin-top:22px;font-size:50px}
 
-  body.focus .invcard{padding:40px 80px}
-  body.focus .invcard .ilogo{width:172px;height:172px;margin-bottom:18px}
-  body.focus .invcard .iuni{font-size:36px;margin-bottom:22px}
-  body.focus .invcard .ibig{font-size:110px;margin-bottom:20px}
-  body.focus .invcard .itxt{font-size:46px;margin-bottom:30px}
-  body.focus .invcard .imeta{gap:90px;background-size:600px 39px;padding-top:64px}
-  body.focus .invcard .imeta .k{font-size:25px}
-  body.focus .invcard .imeta .v{font-size:46px}
+  body.focus .invcard{padding:40px 80px;--ilogo:172px;--iuni:36px;--ibig:110px;--itxt:46px}
 
   body.focus .agenda{column-gap:56px;--acw:180px;--afs:26px}
 
@@ -2812,6 +2813,26 @@ function fitAgenda(s){
   a.style.setProperty('--akf',best.kf.toFixed(3));
 }
 
+/* Урилга/танилцуулах карт — агуулга хүрээндээ тулахаас сэргийлж багасгана.
+   Дээд, доод талд дор хаяж PAD пиксел зай үлдээнэ. */
+function fitInv(s){
+  const c=s&&s.querySelector('.invcard'); if(!c)return;
+  const PAD=34;
+  c.style.removeProperty('--ik');
+  let k=1, guard=40;
+  const tight=()=>{
+    const need=c.scrollHeight - c.clientHeight;
+    if(need>0)return true;
+    const lg=c.querySelector('.ilogo');
+    if(!lg)return false;
+    const gap=lg.getBoundingClientRect().top - c.getBoundingClientRect().top;
+    return gap < PAD;
+  };
+  while(guard-- > 0 && k > 0.55 && tight()){
+    k -= 0.02; c.style.setProperty('--ik', k.toFixed(3));
+  }
+}
+
 function fitCards(s){
   if(!s)return;
   s.querySelectorAll('.card').forEach(c=>{
@@ -2834,7 +2855,7 @@ function fitCards(s){
     }
   }
 }
-function refitCreed(){ slides.forEach(s=>{fitCreed(s);fitCards(s);fitAgenda(s)}); }
+function refitCreed(){ slides.forEach(s=>{fitCreed(s);fitCards(s);fitAgenda(s);fitInv(s)}); }
 
 /* ============ СҮЛД ДУУ — мөр мөрөөр гараар удирдана ============
    Бадаг бүхэлдээ харагдана; одоо дуулж буй мөр тод, өнгөрсөн нь бүдэг.
@@ -2983,7 +3004,7 @@ function handleVideos(i){
     if(ap&&ap.classList.contains('songslide'))       requestAnimationFrame(()=>runSongLines(ap));
     else if(ap&&ap.classList.contains('peopleslide'))requestAnimationFrame(()=>runPeople(ap));
   }
-  { const ac=slides[i]; if(ac)requestAnimationFrame(()=>{fitCards(ac);fitAgenda(ac)}); }
+  { const ac=slides[i]; if(ac)requestAnimationFrame(()=>{fitCards(ac);fitAgenda(ac);fitInv(ac)}); }
   const act=slides[i];
   if(act&&act.dataset.key)requestAnimationFrame(()=>runFreshman(act));
   slides.forEach((s,k)=>{
