@@ -600,13 +600,26 @@
     color:#0B2417;font-size:26px;font-weight:900;
   }
   .clubcell{--clfs:34px}
-  .clubcell .ct{font-size:var(--clfs);line-height:1.22;font-weight:700;color:#FFF8E7}
+  .clubcell .cb{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.14em}
+  .clubcell .ct{font-size:var(--clfs);line-height:1.18;font-weight:700;color:#FFF8E7}
+  .clubcell .cd{font-size:calc(var(--clfs)*.62);line-height:1.16;font-weight:600;
+    letter-spacing:.02em;color:var(--gold-300)}
   body.focus .clubgrid{gap:22px}
   body.focus .clubcell{padding:16px 32px;gap:26px}
   body.focus .clubcell .cn{width:64px;height:64px;font-size:31px}
   body.focus .clubcell{--clfs:42px}
   body.light .clubcell{background:rgba(10,81,48,.05);border-color:#C99A06}
   body.light .clubcell .ct{color:#0A2A18}
+  body.light .clubcell .cd{color:#7A5A0E}
+  /* 3 баганатай нягт байрлал — 17+ клуб */
+  .clubdense .clubgrid{gap:12px}
+  .clubdense .clubcell{padding:8px 16px;gap:14px;border-radius:13px}
+  .clubdense .clubcell .cn{width:42px;height:42px;font-size:21px}
+  .clubdense .clubcell{--clfs:27px}
+  body.focus .clubdense .clubgrid{gap:15px}
+  body.focus .clubdense .clubcell{padding:10px 20px;gap:18px}
+  body.focus .clubdense .clubcell .cn{width:50px;height:50px;font-size:25px}
+  body.focus .clubdense .clubcell{--clfs:33px}
   /* Спорт клуб — цөөн зүйл, хол зайнаас уншихаар том */
   .clubsbig .clubgrid{gap:24px;grid-template-rows:repeat(4,minmax(0,1fr))}
   .clubsbig .clubcell{padding:16px 40px;gap:32px;border-radius:20px;
@@ -1768,17 +1781,26 @@ const P=[
 
  {ts:"10:57", t:"10:56–11:00", same:true, nv:"Оюутны клубууд",
   title:"Оюутны клубууд",
+  sub:"Сонирхлын чиглэлээрээ нэгдэж, оюутны хөгжлийн клубт элсээрэй",
   clubs:[
-   "Цэнгээнт бүжгийн «Хатантуул» клуб",
-   "«Ирээдүйн сео» илтгэл, мэтгэлцээний клуб",
-   "MULS Finance-IFA",
-   "«Шагайн харваа» клуб",
-   "«Dijital solution» зураг, видео, подкаст",
-   "«Агро робот» клуб",
-   "Thank\u2019s клуб",
-   "Казак оюутнуудын клуб",
-   "«Helpers» компьютер, программ хангамж",
-   "Спорт клуб · 7 төрөл"]},
+   {n:"«Мал зүйч оюутан» клуб",   d:"Мал аж ахуй",                          u:"МААБС"},
+   {n:"«Furry friends» клуб",     d:"Амьтны эрх хамгаалах",                 u:"МЭС"},
+   {n:"«Атяна» клуб",             d:"Мал эмнэлэг · үзүүлэн бэлтгэх",        u:"МЭС"},
+   {n:"«Ирээдүйн СЕО» клуб",      d:"Илтгэл, мэтгэлцээн, багийн ажиллагаа", u:"ЭЗБС"},
+   {n:"«MULS Finance» клуб",      d:"Санхүү",                               u:"ЭЗБС"},
+   {n:"«IFA» клуб",               d:"Санхүү",                               u:"ЭЗБС"},
+   {n:"«HR club» клуб",           d:"Хүний нөөц",                           u:"ЭЗБС"},
+   {n:"«Biz Mind» клуб",          d:"Бизнес",                               u:"ЭЗБС"},
+   {n:"«HELPERS» клуб",           d:"Програм хангамж, хөгжим, гадаад хэл",  u:"ЭЗБС"},
+   {n:"«Digital Solutions» клуб", d:"Зураг, видео, подкаст",                u:"ЭЗБС"},
+   {n:"«Эерэг өнцөг» клуб",       d:"Гэрэл зураг",                          u:"АЭС"},
+   {n:"«Агро робот» клуб",        d:"",                                     u:"ИТС"},
+   {n:"«Зохион бүтээх» клуб",     d:"",                                     u:"ИТС"},
+   {n:"«Шагайн харваа» клуб",     d:"",                                     u:"ИТС"},
+   {n:"«Хатантуул» клуб",         d:"Бүжгийн спорт",                        u:""},
+   {n:"«Киран» клуб",             d:"Казак оюутны клуб",                    u:""},
+   {n:"«Танкс» клуб",             d:"",                                     u:""},
+   {n:"Спорт клуб · 7 төрөл",       d:"Дараагийн слайдад",                    u:""}]},
 
  {ts:"10:58", t:"10:56–11:00", same:true, nv:"Спорт клуб",
   title:"Спорт клуб",
@@ -2355,8 +2377,16 @@ P.forEach((it,i)=>{
   } else if(it.clubs){
     s.classList.add('clubslide');
     if(it.clubsBig) s.classList.add('clubsbig');
-    body=`<div class="clubgrid">${it.clubs.map((c,j)=>
-      `<div class="clubcell"><div class="cn">${j+1}</div><div class="ct">${esc(c)}</div></div>`).join('')}</div>`;
+    /* 12-оос олон бол 3 багана — олон клубыг нэг дэлгэцэд уншигдахуйц багтаана */
+    const N=it.clubs.length, cols=it.clubsBig?2:(N>12?3:2), rows=Math.ceil(N/cols);
+    if(!it.clubsBig && cols===3) s.classList.add('clubdense');
+    body=`<div class="clubgrid" style="grid-template-columns:repeat(${cols},minmax(0,1fr));grid-template-rows:repeat(${rows},minmax(0,1fr))">${it.clubs.map((c,j)=>{
+      const o=(typeof c==='string')?{n:c,d:'',u:''}:c;
+      const sub=[o.d,o.u].filter(Boolean).join(' · ');
+      return `<div class="clubcell"><div class="cn">${j+1}</div>`+
+             `<div class="cb"><div class="ct">${esc(o.n)}</div>`+
+             (sub?`<div class="cd">${esc(sub)}</div>`:'')+`</div></div>`;
+    }).join('')}</div>`;
   } else if(it.banner){
     /* Урилга картын загвартай танилцуулах слайд */
     s.classList.add('bannerslide');
