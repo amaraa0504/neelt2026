@@ -264,6 +264,9 @@
   }
   .ceremony .cmeta .k{font-size:21px;letter-spacing:.16em;color:var(--gold-400);margin-bottom:7px}
   .ceremony .cmeta .v{font-size:40px;font-weight:700}
+  .ceremony .corg{margin-top:22px;display:flex;align-items:baseline;justify-content:center;
+    gap:.45em;font-size:30px;font-weight:700;color:rgba(255,248,231,.92)}
+  .ceremony .corg .k{font-size:.72em;letter-spacing:.12em;color:var(--gold-400);font-weight:700}
 
   body.focus .ceremony{padding:36px 80px}
   body.focus .ceremony .clogo{width:174px;height:174px;margin-bottom:18px}
@@ -273,6 +276,7 @@
   body.focus .ceremony .cmeta{gap:90px;padding-top:26px}
   body.focus .ceremony .cmeta .k{font-size:25px}
   body.focus .ceremony .cmeta .v{font-size:47px}
+  body.focus .ceremony .corg{font-size:36px;margin-top:26px}
 
   /* ---------- Хөрөг зурагтай слайд ---------- */
   .slide.portraitslide .s-sub{display:none}
@@ -944,11 +948,9 @@
                 0 8px 30px rgba(0,0,0,.7);
   }
   .spotname .pg{
-    display:inline-block;margin-top:26px;max-width:1500px;
-    padding:12px 38px;border:2px solid var(--gold-500);border-radius:999px;
-    background:rgba(4,48,27,.82);
+    display:inline-block;margin-top:22px;max-width:1500px;
     font-size:38px;line-height:1.2;font-weight:700;letter-spacing:.09em;
-    color:rgba(255,248,231,.95);
+    color:var(--gold-300);text-shadow:0 3px 16px rgba(0,0,0,.55);
   }
   .starcap{
     position:absolute;left:0;right:0;bottom:0;text-align:center;
@@ -959,7 +961,7 @@
   .starcap b{color:var(--gold-300)}
   body.focus .spotname{--spfs:190px}
   body.focus .spotname::before{inset:-96px -190px}
-  body.focus .spotname .pg{font-size:46px;margin-top:32px;padding:14px 46px}
+  body.focus .spotname .pg{font-size:46px;margin-top:28px}
   body.focus .starcap{font-size:46px}
 
   /* ---------------- 2. ӨНӨӨДӨР БОЛ 1 ДЭХ ӨДӨР ---------------- */
@@ -1332,6 +1334,8 @@
   body.light .invcard .imeta .v,body.light #intro .imeta .v,
   body.light .ceremony .cmeta .v{color:#06301C}
   body.light .ceremony .cmeta{border-top-color:rgba(10,81,48,.25)}
+  body.light .ceremony .corg{color:#0C2E1C}
+  body.light .ceremony .corg .k{color:#7A5A0E}
   body.light #intro{background:#F6F1E3}
   body.light #intro .iskip{color:rgba(6,48,28,.45)}
   body.light #intro .ibar{background:rgba(6,48,28,.14)}
@@ -1361,7 +1365,7 @@
       rgba(246,241,227,.94), rgba(246,241,227,.66) 55%, rgba(246,241,227,0) 100%);
   }
   body.light .spotname .nm{color:#0A5130;text-shadow:0 0 40px rgba(255,255,255,.9)}
-  body.light .spotname .pg{color:#0C2E1C;background:#FFFDF6;border-color:#C99A06}
+  body.light .spotname .pg{color:#7A5A0E;text-shadow:none}
   body.light .starcap{color:#0C2E1C;background:linear-gradient(180deg,transparent,rgba(246,241,227,.92) 55%)}
   body.light .starcap b{color:#7A5A0E}
 
@@ -1542,7 +1546,8 @@ const P=[
   ceremony:{
     uni:"ХӨДӨӨ АЖ АХУЙН ИХ СУРГУУЛЬ",
     main:"ШИНЭ ЭЛСЭГЧДЭД ЗОРИУЛСАН НЭЭЛТТЭЙ ХААЛГАНЫ ӨДӨР",
-    meta:[["ОГНОО","2026.09.14"],["ЦАГ","10:00"],["БАЙРШИЛ","ХААИС-ийн төв талбай"]]
+    meta:[["ОГНОО","2026.09.14"],["ЦАГ","10:00"],["БАЙРШИЛ","ХААИС-ийн төв талбай"]],
+    org:"Эдийн засаг бизнесийн сургууль"
   }},
 
  {ts:"10:05", t:"10:05–10:15", nv:"Нээлтийн үг · Ректор",
@@ -1798,18 +1803,7 @@ const P=[
       "ОЮУТНЫ БАЙР 1, 2, 3",
       "БАГШ НАРЫН ОРОН СУУЦ",
       "МАЛ АМЬТНЫ ЭМНЭЛЭГ"
-    ]}},
-
- {ts:"11:00", t:"11:00–14:00", nv:"Чиглүүлэх уулзалт",
-  title:"Шинэ оюутныг чиглүүлэх уулзалт",
-  sub:"13:00–14:00 · Бүрэлдэхүүн сургууль, тэнхимүүдэд",
-  tt:[
-   ["13:00–13:05","Шинэ элсэгчдийг угтах","Тэнхимийн багш нар"],
-   ["13:05–13:15","Тэнхим, багш нарын танилцуулга","Тэнхимийн эрхлэгч"],
-   ["13:15–13:30","ХААИС-ийн сургалтын үйл ажиллагааны танилцуулга","ЭЗБС-ийн Сургалтын албаны ажилтан"],
-   ["13:30–13:40","Мэргэжлийн хөтөлбөрүүдийн танилцуулга","Тэнхимийн эрхлэгч"],
-   ["13:40–13:50","«Ажил ба амжилтын гараа» хөтөлбөрийн төгсөгчийн яриа","Хөтөлбөрийн төгсөгч"],
-   ["13:50–14:00","Оюутанд чиглэсэн үйл ажиллагааны танилцуулга","ЭЗБС-ийн Оюутны Зөвлөлөөс төлөөлөгч"]]}
+    ]}}
 ];
 
 /* ================================================================
@@ -2416,6 +2410,7 @@ P.forEach((it,i)=>{
       <div class="crule"></div>
       <div class="cmain">${esc(c.main)}</div>
       <div class="cmeta">${c.meta.map(m=>`<div><div class="k">${esc(m[0])}</div><div class="v">${esc(m[1])}</div></div>`).join('')}</div>
+      ${c.org?`<div class="corg"><span class="k">Зохион байгуулагч:</span><span class="v">${esc(c.org)}</span></div>`:''}
     </div>`;
     s.classList.remove('hasnote');
   } else if(it.oath){
@@ -2544,9 +2539,8 @@ const UIG_PLACE = {
   13:{h:400, side:'r'},   /* Тэтгэлэгт хамрагдагсад */
   14:{h:560, side:'r'},   /* Урлагийн тоглолт */
   16:{h:520, side:'r'},   /* Клуб · Асарт урих */
-  20:{h:410, side:'r'},   /* Чиглүүлэх уулзалт */
-  23:{h:440, side:'r'},   /* Статистик */
-  24:{h:480, side:'r'}    /* Өнөөдөр бол 14 дэх өдөр */
+  22:{h:440, side:'r'},   /* Статистик */
+  23:{h:480, side:'r'}    /* Өнөөдөр бол 14 дэх өдөр */
 };
 (function placeUig(){
   const M = 26;
